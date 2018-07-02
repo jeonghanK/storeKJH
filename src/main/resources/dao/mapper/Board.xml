@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.mapper.BoardMapper">
+	<select id="count" resultType="Integer" parameterType="map">
+		select count(*) from board
+		<if test="searchType != null and searchContent != null">
+		<!-- 달러쓰니까 문자열은 ''을 붙여줘야함 -->
+			where ${searchType} like '%${searhContet}%'
+		</if>
+	</select>
+	
+	<select id="list" resultType="Board" parameterType="map">
+		select num,name,pass,subject,content,file1 fileurl,
+		regdate,readcnt,ref,reflevel,refstep from board
+		
+		<if test="num != null">
+		where num=#{num} <!-- like와 컬럼에 ''가 붙음. -->
+		</if>
+		
+		<if test="searchType != null and searchContent != null">
+		where ${searchType} like '%${searhContet}%'
+		</if>
+		
+		<!-- 문자열로 startrow가 들어왔다면 달러표시 사용. int는 ''필요없음. 값만 치환할때 달러 -->
+		order by ref desc, refstep asc limit #{startrow},#{limit}
+		</select>
+</mapper>

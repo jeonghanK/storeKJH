@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<decorators defaultdir="/decorator">
+	<decorator name="main" page="decorator.jsp">
+		<pattern>*.shop</pattern>
+	</decorator>
+	<!-- layout 설정을 제외 함. -->
+	<excludes>
+		<!-- 그래프는 사이트메쉬에서 제외시킴. 사이트메쉬의 테두리없이 순수한 그래프만 나오게됨. -->
+		<pattern>/admin/graph*</pattern>
+		<pattern>/user/mygraph*</pattern>
+	</excludes>
+</decorators>
